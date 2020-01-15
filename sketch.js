@@ -70,9 +70,44 @@ function draw() {
 
   //create a sphere that moves on the rails
   push();
-  translate(350 * cos(frameCount), 350 * sin(frameCount), 0);
+  translate(180 * cos(frameCount), 180 * sin(frameCount), 0);
   fill(100);
-  sphere(100);
+  sphere(60);
+  pop();
+
+  //createdecoration rotating boxes
+  push();
+  fill(100);
+  translate(350 * cos(frameCount), 350 * sin(frameCount-180), 350 * cos(frameCount));
+  rotateX(frameCount*0.3)
+  rotateY(frameCount*0.3)
+  rotateZ(frameCount*0.3)
+  box(70);
+
+  translate(380 * cos(frameCount-30), 380 * sin(frameCount-90), 380 * cos(frameCount));
+  rotateX(frameCount*0.3)
+  rotateY(frameCount*0.3)
+  rotateZ(frameCount*0.3)
+  box(100);
+
+  translate(260 * cos(frameCount-90), 260 * sin(frameCount-60), 260 * cos(frameCount));
+  rotateX(frameCount*0.3)
+  rotateY(frameCount*0.3)
+  rotateZ(frameCount*0.3)
+  box(60);
+
+  translate(290 * cos(frameCount-150), 290 * sin(frameCount-30), 390 * cos(frameCount));
+  rotateX(frameCount*0.3)
+  rotateY(frameCount*0.3)
+  rotateZ(frameCount*0.3)
+  box(50);
+
+  translate(320 * cos(frameCount-270), 320 * sin(frameCount), 320 * cos(frameCount));
+  rotateX(frameCount*0.3)
+  rotateY(frameCount*0.3)
+  rotateZ(frameCount*0.3)
+  box(120);
+
   pop();
 
   //create a rotating panel with instructions
@@ -94,9 +129,9 @@ function draw() {
   pop();
 
   //create rails for the sphere
-  translate(0, 0, -95)
-  torus(300, 10);
-  torus(400, 10);
+  translate(0, 0, -60)
+  torus(150, 6);
+  torus(210, 6);
 }
 
 function mouseClicked() {
