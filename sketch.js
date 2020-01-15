@@ -1,3 +1,5 @@
+var onOff = 0;
+
 function preload() {
   instructions = loadImage("assets/texture.jpg");
 }
@@ -8,37 +10,60 @@ function setup() {
 }
 
 function draw() {
+
+  //create variables for the position of the mouse
+  var locX = mouseX - width / 2;
+  var locY = mouseY - height / 2;
+
+  //create variables for changing r, g, b values (in a loop)
+  var rBackground = 50 * cos(frameCount - 50);
+  var gBackground = 50 * cos(frameCount - 170);
+  var bBackground = 50 * cos(frameCount - 230);
+
+  //create position1 variables that change in a loop
+  var locX1 = width * cos(frameCount);
+  var locY1 = height * cos(frameCount);
+  var locZ1 = height * cos(frameCount);
+
+  //create variables for changing r1, g1, b1 values (in a loop)
+  var r1 = 255 * cos(frameCount);
+  var g1 = 255 * cos(frameCount - 90);
+  var b1 = 255 * cos(frameCount - 180);
+
+  //create position2 variables that change in a loop
+  var locX2 = width * cos(frameCount);
+  var locY2 = height * cos(frameCount);
+  var locZ2 = height * cos(frameCount);
+
+  //create variables for changing r2, g2, b2 values (in a loop)
+  var r2 = 255 * cos(frameCount - 180);
+  var g2 = 255 * cos(frameCount - 90);
+  var b2 = 255 * cos(frameCount);
+
   //sety controls to orbit around the model
   orbitControl(2, 2, 0);
-
-  //set the background so that it changes upon moving your mouse
-  background(
-    map(mouseX, 0, width, 255, 0),
-    map(mouseY, 0, height, 0, 255),
-    map(mouseX, 0, height, 0, 255)
-  );
 
   //set an ambient light
   ambientLight(30, 10, 50);
 
-  // set a directional light that changes depending on your mouse position
-  directionalLight(
-    map(mouseY, 0, height, 255, 0),
-    map(mouseX, 0, width, 255, 0),
-    map(mouseX, 0, height, 0, 255),
-    -(width / 5 ) * 2,
-    -(height / 5) * 2,
-    map(mouseY, 0, height, 1000, -1000));
+  //change background on click
+  if (onOff == 0) {
+    background(0);
+  } else if (onOff == 1) {
+    background(rBackground, gBackground, bBackground);
+  }
 
-  //do the same for a poin light
-  pointLight(
-    map(mouseX, 0, width, 255, 0),
-    map(mouseX, 0, width, 255, 0),
-    map(mouseY, 0, height, 0, 255),
-    0,
-    mouseY,
-    1000,
-  );
+  //change lights on click
+  if (onOff == 0) {
+    // set a point light that changes depending on the previously set position values
+    pointLight(250, 250, 250, locX, locY, 50);
+  } else if (onOff ==1) {
+    // set a point light that changes depending on the previously set position and rgb values
+    pointLight(250, 250, 250, locX, locY, 50);
+    pointLight(r1, g1, b1, locX1, locY1, locZ1);
+    pointLight(r2, g2, b2, locX2, locY2, locZ2);
+  }
+
 
   noStroke(255);
   rotateX(90);
@@ -52,7 +77,7 @@ function draw() {
 
   //create a rotating panel with instructions
   push();
-  rotateZ(frameCount-90);
+  rotateZ(frameCount - 90);
   rotateX(-90);
   translate(0, -200, 1)
   texture(instructions);
@@ -61,7 +86,7 @@ function draw() {
 
   //make it so that it is correctly visible from both sizes
   push();
-  rotateZ(frameCount-270);
+  rotateZ(frameCount - 270);
   rotateX(-90);
   translate(0, -200, 1)
   texture(instructions);
@@ -72,6 +97,14 @@ function draw() {
   translate(0, 0, -95)
   torus(300, 10);
   torus(400, 10);
+}
+
+function mouseClicked() {
+  if (onOff == 0) {
+    onOff = 1;
+  } else if (onOff == 1) {
+    onOff = 0;
+  }
 }
 
 function windowResized() {
